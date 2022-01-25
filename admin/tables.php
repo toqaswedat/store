@@ -29,6 +29,17 @@ include_once './connected.php';
 
     <!-- Custom styles for this page -->
     <link href="vendor/datatables/dataTables.bootstrap4.min.css" rel="stylesheet">
+    <style>
+
+
+tr td img{
+    width:15vw;
+    height:20vh
+}
+
+
+
+</style>
 
 </head>
 
@@ -431,6 +442,131 @@ include_once './connected.php';
                                     </tbody>
                                     
                               
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Products Table -->
+                    <div class="card shadow mb-4">
+                        <div class="card-header py-3">
+                            <h6 class="m-0 font-weight-bold text-primary">Products</h6>
+                        </div>
+                        <div class="card-body">
+                            <div class="table-responsive">
+                                <a href='creatProdect.php?id=$e[id]'>Add products </a>
+                                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                                    <thead>
+                                        <tr>
+                                            <th>id</th>
+                                            <th>Name products</th>
+                                            <th>Imge</th>
+                                            <th>Price</th>
+                                            <th>Instok</th>
+                                            <th>Description</th>
+                                            <th>Category</th>
+                                            <th>delete</th>
+                                            <th>edit</th>
+                                        </tr>
+                                    </thead>
+                                    <tfoot>
+                                        <tr>
+                                            <th>id</th>
+                                            <th>Name products</th>
+                                            <th>Imge</th>
+                                            <th>Price</th>
+                                            <th>Instok</th>
+                                            <th>Description</th>
+                                            <th>Category</th>
+                                            <th>delete</th>
+                                            <th>edit</th>
+
+                                        </tr>
+                                    </tfoot>
+                                    <tbody>
+                                        
+                                        <?php 
+                                       $data=$db->prepare("SELECT products.id , products.product_name,products.imge,
+                                        products.price,products.instok,products.description,categories.Categories_name
+                                        FROM products
+                                        INNER JOIN categories on products.category_id=categories.id ");
+                                       $data->execute();
+
+                                    //    var_dump($data);
+
+                                       foreach($data as $e){
+                                           echo "<tr>";
+                                           echo "<td>$e[id]</td>";
+                                           echo "<td>$e[product_name]</td>";
+                                           echo "<td><img src='$e[imge]'  /></td>";
+                                        //    echo "<td><img src='$element[product_img] '/></td>";
+                                           echo "<td>$e[price]</td>";
+                                           echo "<td>$e[instok]</td>";
+                                           echo "<td>$e[description]</td>";
+                                           echo "<td>$e[Categories_name]</td>";
+                                           echo "<td> <a href='delete.php?id=$e[id]&&name=products'>delete </a> </td>";
+                                           echo "<td> <a href='editeProdect.php?id=$e[id]'>edit </a> </td>";
+                                           
+                                        //    echo "<td><form method='POST'><input type='hidden' name='edit' value=$e[id] /><button type='submit' >edit </button > </form>  </td>";
+                                           echo"</tr>";
+                                       }
+
+
+                                        ?>
+                                    </tbody>
+                                    
+                            
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- category -->
+                    <div class="card shadow mb-4">
+                        <div class="card-header py-3">
+                            <h6 class="m-0 font-weight-bold text-primary">category</h6>
+                        </div>
+                        <div class="card-body">
+                            <div class="table-responsive">
+                                <a href='creatcategories.php?id=$e[id]'>Add category </a>
+                                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                                    <thead>
+                                        <tr>
+                                            <th>id</th>
+                                            <th>Name category</th>
+                                            <th>delete</th>
+                                            <th>edit</th>
+                                        </tr>
+                                    </thead>
+                                    <tfoot>
+                                        <tr>
+                                            <th>id</th>
+                                            <th>Name category</th>
+                                            <th>delete</th>
+                                            <th>edit</th>
+
+                                        </tr>
+                                    </tfoot>
+                                    <tbody>
+                                        
+                                        <?php 
+                                       $data=$db->prepare("SELECT * FROM categories");
+                                       $data->execute();
+
+                                        //var_dump($data);
+
+                                       foreach($data as $e){
+                                           echo "<tr>";
+                                           echo "<td>$e[id]</td>";
+                                           echo "<td>$e[Categories_name]</td>";
+                                           echo "<td> <a href='delete.php?id=$e[id]&&name=category'>delete </a> </td>";
+                                           echo "<td> <a href='editecategories.php?id=$e[id]'>edit </a> </td>";
+                                           echo"</tr>";
+                                       }
+
+
+                                        ?>
+                                    </tbody>
+                                    
+                            
                                 </table>
                             </div>
                         </div>

@@ -47,6 +47,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $_SESSION["userLogin"] = [
             $row["username"],
         ];
+        
         header("Location: http://localhost/project1/landing.php");
     } else {
         echo "no Register";

@@ -1,0 +1,149 @@
+<?php
+include_once './connected.php'; 
+
+
+
+if($_SERVER ["REQUEST_METHOD"]=="GET" ){
+    $value = $_GET["id"];
+    $sql="SELECT * FROM products WHERE id ='$value' ";
+    $result= $db->query($sql);
+    $row=$result->fetch(PDO::FETCH_ASSOC);
+    var_dump ($row);
+
+}
+
+if($_SERVER ["REQUEST_METHOD"]=="POST" ){
+    $value = $_GET["id"];
+    $data=$db->prepare("UPDATE products SET 
+    product_name='$_POST[product_name]',
+    price='$_POST[price]',description='$_POST[description]',
+    instok='$_POST[instok]',imge='$_POST[imge]' 
+    WHERE id='$value' ");
+        // "UPDATE users SET username=$_POST[editename],price=$_POST[price],password=$_POST[editepassword],instok=$_POST[instok] WHERE id='$value' "
+    $data->execute();
+    // echo "ttttt";
+    header('Location:http://localhost/project1/admin/tables.php');
+}
+
+?>
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>Edite Prodect </title>
+
+    <!-- Custom fonts for this template-->
+    <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
+    <link
+        href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
+        rel="stylesheet">
+
+    <!-- Custom styles for this template-->
+    <link href="css/sb-admin-2.min.css" rel="stylesheet">
+
+</head>
+
+
+<body class="bg-gradient-primary">
+
+    <div class="container">
+
+        <!-- Outer Row -->
+        <div class="row justify-content-center">
+
+            <div class="col-xl-10 col-lg-12 col-md-9">
+
+                <div class="card o-hidden border-0 shadow-lg my-5">
+                    <div class="card-body p-0">
+                        <!-- Nested Row within Card Body -->
+                        <div class="row">
+                        <div class="col-lg-6 d-none d-lg-block bg-login-image"></div>
+                            <div class="col-lg-6">
+                                <div class="p-5">
+                                    <div class="text-center">
+                                        <h1 class="h4 text-gray-900 mb-4">Welcome Back!</h1>
+                                    </div>
+                                    <form class="user" method="POST">
+                                    <div class="form-group">
+                                        <label >product_name</label>
+                                            <input type="text" class="form-control form-control-user"
+                                                id="exampleInputPassword" placeholder="product_name" value='<?php echo "$row[product_name]"; ?>' name="product_name">
+                                        </div>
+                                        <div class="form-group">
+                                        <label >Id</label>
+
+                                            <input type="text" class="form-control form-control-user"
+                                                id="exampleInputPassword" placeholder="id" value='<?php echo "$row[id]"; ?> ' disabled>
+                                        </div>
+
+                                        <div class="form-group">
+                                        <label >Price</label>
+
+                                            <input type="text" class="form-control form-control-user"
+                                                id="exampleInputPassword" placeholder="price" value='<?php echo "$row[price]"; ?> ' name="price"  >
+                                        </div>
+                                        <div class="form-group">
+                                        <label >Description</label>
+
+                                            <input type="text" class="form-control form-control-user"
+                                                id="exampleInputPassword" placeholder="description" value='<?php echo "$row[description]"; ?> ' name="description">
+                                        </div>
+                                        <div class="form-group">
+                                        <label >instok</label>
+
+                                            <input type="text" class="form-control form-control-user"
+                                                id="exampleInputPassword" placeholder="instok" value='<?php echo "$row[instok]"; ?> ' name="instok">
+                                        </div>
+                                        <div class="form-group">
+                                        <label >imge</label>
+
+                                            <input type="text" class="form-control form-control-user"
+                                                id="exampleInputPassword" placeholder="img" value='<?php echo "$row[imge]"; ?> ' name="imge">
+                                        </div>
+                                        <!-- <div class="form-group">
+                                        <label >Categories_name</label>
+
+                                            <input type="text" class="form-control form-control-user"
+                                                id="exampleInputPassword" placeholder="instok" value='<?php echo "$row[Categories_name]"; ?> ' name="editepassword">
+                                        </div> -->
+                                        
+
+                                        <button type="submit" class="btn btn-primary btn-user btn-block">
+                                         edit
+                                        </button>
+
+                                    
+                                    </form>
+                                    
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <!-- Bootstrap core JavaScript-->
+    <script src="vendor/jquery/jquery.min.js"></script>
+    <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+    <!-- Core plugin JavaScript-->
+    <script src="vendor/jquery-easing/jquery.easing.min.js"></script>
+
+    <!-- Custom scripts for all pages-->
+    <script src="js/sb-admin-2.min.js"></script>
+
+</body>
+
+</html>
